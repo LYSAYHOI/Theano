@@ -1,0 +1,1910 @@
+Failed to import scipy.linalg.blas.fblas. Falling back on slower implementations (libpgf90.so: cannot open shared object file: No such file or directory)
+Using gpu device 0: Tesla T10 Processor
+COULD NOT IMPORT bz2 !
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  True True ones
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  True True ones
+		----  Encoding  layer #3 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc3
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  rectifier
+			noise =  binomial
+			out =  outenc3
+			params (gradients) =  [Wenc3, benc3]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  True True ones
+	---- Output Layer ----
+		**** Logistic_regression.__init__ ****
+		inp =  outenc3
+		n_inp =  1000
+		n_out =  5
+		out =  Softmax.0
+		params (gradients) =  [W, b]
+		wdreg (weigth decay) =  l2
+		upmaskbool =  None
+		allocW, allocb =  True True
+		----  Decoding  layer #3 ----
+			**** DenseLayer.__init__ ****
+			tag =  dec3
+			inp =  outenc3
+			n_inp =  1000
+			n_out =  1000
+			act =  rectifier
+			noise =  binomial
+			out =  outdec3
+			params (gradients) =  [InplaceDimShuffle{1,0}.0, bdec3]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False True False
+		----  Decoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  dec2
+			inp =  outdec3
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outdec2
+			params (gradients) =  [InplaceDimShuffle{1,0}.0, bdec2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False True False
+		----  Decoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  dec1
+			inp =  outdec2
+			n_inp =  1000
+			n_out =  5000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outdec1
+			params (gradients) =  [InplaceDimShuffle{1,0}.0, bdec1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False True ones
+	**** SDAE ****
+	depth =  3
+	mode =  Mixte
+	depth_min, depth_max, update_type =  0 , 3 , global
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , None
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.1
+	sup_scaling, unsup_scaling, aux_scaling  =  1.0 1.0 None
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc1, benc1, Wenc2, benc2, Wenc3, benc3, W, b, bdec3, bdec2, bdec1] , [] , [Elemwise{mul,no_inplace}.0]
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  False , None , None , None , None
+	auxact, auxn_out, auxwdreg =  None , None , None
+/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl
+BEGIN DEPTH 1 of 3 (33.33%)...
+ang11 2010-08-17 15:56:49.544997: 0:00:05.420000 user+sys, 0:00:03.490000 real, 155.30% usage, 304.48 MB
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  5000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-2
+			params (gradients) =  [Waux-2, baux-2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  True True ones
+	**** SDAE ****
+	depth =  3
+	mode =  Mixte
+	depth_min, depth_max, update_type =  0 , 4 , global
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , None
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.1
+	sup_scaling, unsup_scaling, aux_scaling  =  1.0 1.0 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc1, benc1, Wenc2, benc2, Wenc3, benc3, W, b, bdec3, bdec2, bdec1, Waux-2, baux-2] , [] , [Elemwise{mul,no_inplace}.0]
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -2 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 5000 , l2
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  5000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-2
+			params (gradients) =  [Waux-2, baux-2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 1 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , (0.69999999999999996, 0.0041000000000000003)
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.01
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc1, benc1, Waux-2, baux-2] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -2 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 5000 , l2
+Waiting for existing lock by process '19549' (I am process '29124')
+To manually release the lock, delete /work/turian/.theano/compiledir_Linux-2.6.18-164.11.1.el5-x86_64-with-redhat-5.4-Final-x86_64/lock_dir
+Waiting for existing lock by unknown process (I am process '29124')
+To manually release the lock, delete /work/turian/.theano/compiledir_Linux-2.6.18-164.11.1.el5-x86_64-with-redhat-5.4-Final-x86_64/lock_dir
+Validating (err={1000: {}, 10000: {}, 100: {}},epoch=0,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=0,ACT=['tanh', 'tanh', 'rectifier'],LR=0.01,NOISE_LVL=(0.69999999999999996, 0.0041000000000000003),BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)...
+ang11 2010-08-17 15:57:19.808940: 0:00:13.760000 user+sys, 0:00:33.750000 real, 40.77% usage, 379.83 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  5000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-2
+			params (gradients) =  [Waux-2, baux-2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 1 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , None
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.01
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc1, benc1, Waux-2, baux-2] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -2 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 5000 , l2
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=0, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'))...
+ang11 2010-08-17 15:57:23.825568: 0:00:17.390000 user+sys, 0:00:37.760000 real, 46.05% usage, 381.90 MB
+...done creating libsvm files
+ang11 2010-08-17 15:57:36.354979: 0:00:29.220000 user+sys, 0:00:50.290000 real, 58.10% usage, 397.35 MB
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=0, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'))...
+ang11 2010-08-17 15:57:36.355395: 0:00:29.220000 user+sys, 0:00:50.290000 real, 58.10% usage, 397.35 MB
+Waiting for existing lock by process '19549' (I am process '29124')
+To manually release the lock, delete /work/turian/.theano/compiledir_Linux-2.6.18-164.11.1.el5-x86_64-with-redhat-5.4-Final-x86_64/lock_dir
+Waiting for existing lock by unknown process (I am process '29124')
+To manually release the lock, delete /work/turian/.theano/compiledir_Linux-2.6.18-164.11.1.el5-x86_64-with-redhat-5.4-Final-x86_64/lock_dir
+...done creating libsvm files
+ang11 2010-08-17 15:58:04.824267: 0:00:41.050000 user+sys, 0:01:18.750000 real, 52.13% usage, 397.35 MB
+Starting SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 15:58:04.824721: 0:00:41.050000 user+sys, 0:01:18.760000 real, 52.12% usage, 397.35 MB
+		Training SVM with C=0.001000, nbinputs=100, numruns=20
+		Training SVM with C=0.010000, nbinputs=100, numruns=20
+	testerr[Cnew 0.010000] = 60.935000 > testerr[Ccurrent 0.001000] = 59.735000
+	Cbest <= 0.001000, testerr[Cbest] = 59.735000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=100, numruns=20
+	testerr[Cnew 0.000316] = 59.735000 > testerr[Ccurrent 0.001000] = 59.735000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=100, numruns=20
+	testerr[Cnew 0.001778] = 59.735000 > testerr[Ccurrent 0.001000] = 59.735000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=100, numruns=20
+	testerr[Cnew 0.000750] = 59.735000 > testerr[Ccurrent 0.001000] = 59.735000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 59.735000 
+	testerr[C 0.000750] = 59.735000 
+	testerr[C 0.001000] = 59.735000  *best* (testerr = 59.735000, testerrdev = 3.123980, trainerr = 18.650000, trainerrdev = 10.900800)
+	testerr[C 0.001778] = 59.735000 
+	testerr[C 0.010000] = 60.935000 
+...done with SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 15:58:11.694157: 0:00:41.070000 user+sys, 0:01:25.620000 real, 47.97% usage, 397.35 MB
+Starting SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 15:58:11.694409: 0:00:41.070000 user+sys, 0:01:25.620000 real, 47.97% usage, 397.35 MB
+		Training SVM with C=0.001000, nbinputs=1000, numruns=10
+		Training SVM with C=0.010000, nbinputs=1000, numruns=10
+	testerr[Cnew 0.010000] = 53.390000 < testerr[Ccurrent 0.001000] = 53.730000
+	NEW BEST: Cbest <= 0.010000, testerr[Cbest] = 53.390000
+	PROCEED: Cstepfactor remains 10.000000, Ccurrent is now 0.010000, Cnew is now 0.100000
+		Training SVM with C=0.100000, nbinputs=1000, numruns=10
+	testerr[Cnew 0.100000] = 53.030000 < testerr[Ccurrent 0.010000] = 53.390000
+	NEW BEST: Cbest <= 0.100000, testerr[Cbest] = 53.030000
+	PROCEED: Cstepfactor remains 10.000000, Ccurrent is now 0.100000, Cnew is now 1.000000
+		Training SVM with C=1.000000, nbinputs=1000, numruns=10
+	testerr[Cnew 1.000000] = 54.860000 > testerr[Ccurrent 0.100000] = 53.030000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.100000, Cnew is now 0.031623
+		Training SVM with C=0.031623, nbinputs=1000, numruns=10
+	testerr[Cnew 0.031623] = 53.160000 > testerr[Ccurrent 0.100000] = 53.030000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.100000, Cnew is now 0.177828
+	testerr[C 0.001000] = 53.730000 
+	testerr[C 0.010000] = 53.390000 
+	testerr[C 0.031623] = 53.160000 
+	testerr[C 0.100000] = 53.030000  *best* (testerr = 53.030000, testerrdev = 0.214709, trainerr = 18.480000, trainerrdev = 0.203961)
+	testerr[C 1.000000] = 54.860000 
+...done with SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 15:58:29.374208: 0:00:41.090000 user+sys, 0:01:43.300000 real, 39.78% usage, 397.35 MB
+Starting SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 15:58:29.374467: 0:00:41.090000 user+sys, 0:01:43.300000 real, 39.78% usage, 397.35 MB
+		Training SVM with C=0.001000, nbinputs=10000, numruns=1
+		Training SVM with C=0.010000, nbinputs=10000, numruns=1
+	testerr[Cnew 0.010000] = 53.500000 < testerr[Ccurrent 0.001000] = 54.300000
+	NEW BEST: Cbest <= 0.010000, testerr[Cbest] = 53.500000
+	PROCEED: Cstepfactor remains 10.000000, Ccurrent is now 0.010000, Cnew is now 0.100000
+		Training SVM with C=0.100000, nbinputs=10000, numruns=1
+	testerr[Cnew 0.100000] = 53.300000 < testerr[Ccurrent 0.010000] = 53.500000
+	NEW BEST: Cbest <= 0.100000, testerr[Cbest] = 53.300000
+	PROCEED: Cstepfactor remains 10.000000, Ccurrent is now 0.100000, Cnew is now 1.000000
+		Training SVM with C=1.000000, nbinputs=10000, numruns=1
+	testerr[Cnew 1.000000] = 54.900000 > testerr[Ccurrent 0.100000] = 53.300000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.100000, Cnew is now 0.031623
+		Training SVM with C=0.031623, nbinputs=10000, numruns=1
+	testerr[Cnew 0.031623] = 52.800000 < testerr[Ccurrent 0.100000] = 53.300000
+	NEW BEST: Cbest <= 0.031623, testerr[Cbest] = 52.800000
+	PROCEED: Cstepfactor remains 0.316228, Ccurrent is now 0.031623, Cnew is now 0.010000
+	testerr[C 0.001000] = 54.300000 
+	testerr[C 0.010000] = 53.500000 
+	testerr[C 0.031623] = 52.800000  *best* (testerr = 52.800000, testerrdev = 0.000000, trainerr = 27.400000, trainerrdev = 0.000000)
+	testerr[C 0.100000] = 53.300000 
+	testerr[C 1.000000] = 54.900000 
+...done with SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 15:58:35.174915: 0:00:41.110000 user+sys, 0:01:49.100000 real, 37.68% usage, 397.35 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  5000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-2
+			params (gradients) =  [Waux-2, baux-2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 1 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , (0.69999999999999996, 0.0041000000000000003)
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.01
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc1, benc1, Waux-2, baux-2] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -2 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 5000 , l2
+VALIDATION: depth 1 / epoch 0 / reconstruction error (is this on test or train?):  3466.00485937
+VALIDATION: depth 1 / epoch 0 / trainsize 100 / svm error (0.001, 59.734999999999999, 3.12398, 18.649999999999999, 10.9008)
+VALIDATION: depth 1 / epoch 0 / trainsize 1000 / svm error (0.10000000000000001, 53.030000000000001, 0.21470900000000001, 18.48, 0.203961)
+VALIDATION: depth 1 / epoch 0 / trainsize 10000 / svm error (0.031622776601683798, 52.799999999999997, 0.0, 27.399999999999999, 0.0)
+ang11 2010-08-17 15:58:51.229475: 0:00:56.460000 user+sys, 0:02:05.150000 real, 45.11% usage, 397.35 MB
+...done validating (err={1000: {0: (0.10000000000000001, 53.030000000000001, 0.21470900000000001, 18.48, 0.203961)}, 10000: {0: (0.031622776601683798, 52.799999999999997, 0.0, 27.399999999999999, 0.0)}, 100: {0: (0.001, 59.734999999999999, 3.12398, 18.649999999999999, 10.9008)}},epoch=0,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=0,ACT=['tanh', 'tanh', 'rectifier'],LR=0.01,NOISE_LVL=(0.69999999999999996, 0.0041000000000000003),BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)
+ang11 2010-08-17 15:58:51.229828: 0:00:56.460000 user+sys, 0:02:05.150000 real, 45.11% usage, 397.35 MB
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 15:59:23.489688: 0:01:28.640000 user+sys, 0:02:37.410000 real, 56.31% usage, 397.35 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 15:59:55.764661: 0:02:00.770000 user+sys, 0:03:09.680000 real, 63.67% usage, 397.35 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:00:27.930626: 0:02:32.780000 user+sys, 0:03:41.840000 real, 68.87% usage, 397.35 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:01:00.080543: 0:03:04.790000 user+sys, 0:04:13.980000 real, 72.76% usage, 397.35 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:01:32.176256: 0:03:36.820000 user+sys, 0:04:46.070000 real, 75.79% usage, 397.35 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:02:04.375904: 0:04:08.970000 user+sys, 0:05:18.270000 real, 78.23% usage, 397.35 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:02:36.581000: 0:04:41.120000 user+sys, 0:05:50.470000 real, 80.21% usage, 397.35 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:03:08.832538: 0:05:13.290000 user+sys, 0:06:22.710000 real, 81.86% usage, 397.35 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:03:41.015306: 0:05:45.340000 user+sys, 0:06:54.890000 real, 83.24% usage, 397.35 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:04:13.508756: 0:06:17.360000 user+sys, 0:07:27.380000 real, 84.35% usage, 397.35 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:04:45.722946: 0:06:49.440000 user+sys, 0:07:59.590000 real, 85.37% usage, 397.35 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:05:17.801474: 0:07:21.450000 user+sys, 0:08:31.660000 real, 86.28% usage, 397.35 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:05:49.976390: 0:07:53.590000 user+sys, 0:09:03.830000 real, 87.08% usage, 397.35 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:06:22.138760: 0:08:25.710000 user+sys, 0:09:35.990000 real, 87.80% usage, 397.35 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:06:53.156071: 0:08:56.650000 user+sys, 0:10:07 real, 88.41% usage, 397.35 MB
+...finished training epoch #1 of 3 (33.33%)
+ang11 2010-08-17 16:06:53.156523: 0:08:56.650000 user+sys, 0:10:07 real, 88.41% usage, 397.35 MB
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 16:07:25.362424: 0:09:28.730000 user+sys, 0:10:39.200000 real, 88.98% usage, 397.35 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 16:07:57.534210: 0:10:00.770000 user+sys, 0:11:11.370000 real, 89.48% usage, 397.35 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:08:29.711795: 0:10:32.790000 user+sys, 0:11:43.540000 real, 89.94% usage, 397.35 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:09:01.809495: 0:11:04.800000 user+sys, 0:12:15.630000 real, 90.37% usage, 397.35 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:09:33.989417: 0:11:36.940000 user+sys, 0:12:47.810000 real, 90.77% usage, 397.35 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:10:06.635465: 0:12:09.150000 user+sys, 0:13:20.450000 real, 91.09% usage, 397.35 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:10:38.849265: 0:12:41.300000 user+sys, 0:13:52.660000 real, 91.43% usage, 397.35 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:11:11.060879: 0:13:13.400000 user+sys, 0:14:24.860000 real, 91.74% usage, 397.35 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:11:43.245775: 0:13:45.430000 user+sys, 0:14:57.040000 real, 92.02% usage, 397.35 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:12:15.411970: 0:14:17.460000 user+sys, 0:15:29.200000 real, 92.28% usage, 397.35 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:12:47.552929: 0:14:49.480000 user+sys, 0:16:01.340000 real, 92.53% usage, 397.35 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:13:19.721559: 0:15:21.630000 user+sys, 0:16:33.500000 real, 92.77% usage, 397.35 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:13:51.920637: 0:15:53.780000 user+sys, 0:17:05.700000 real, 92.99% usage, 397.35 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:14:24.080638: 0:16:25.910000 user+sys, 0:17:37.850000 real, 93.20% usage, 397.35 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:14:55.141508: 0:16:56.840000 user+sys, 0:18:08.910000 real, 93.38% usage, 413.28 MB
+...finished training epoch #2 of 3 (66.67%)
+ang11 2010-08-17 16:14:55.141716: 0:16:56.840000 user+sys, 0:18:08.910000 real, 93.38% usage, 413.28 MB
+Validating (err={1000: {0: (0.10000000000000001, 53.030000000000001, 0.21470900000000001, 18.48, 0.203961)}, 10000: {0: (0.031622776601683798, 52.799999999999997, 0.0, 27.399999999999999, 0.0)}, 100: {0: (0.001, 59.734999999999999, 3.12398, 18.649999999999999, 10.9008)}},epoch=2,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=0,ACT=['tanh', 'tanh', 'rectifier'],LR=0.01,NOISE_LVL=(0.69999999999999996, 0.0041000000000000003),BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)...
+ang11 2010-08-17 16:14:55.141977: 0:16:56.840000 user+sys, 0:18:08.910000 real, 93.38% usage, 413.28 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  5000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-2
+			params (gradients) =  [Waux-2, baux-2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 1 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , None
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.01
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc1, benc1, Waux-2, baux-2] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -2 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 5000 , l2
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=0, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'))...
+ang11 2010-08-17 16:14:59.671653: 0:17:00.560000 user+sys, 0:18:13.440000 real, 93.33% usage, 413.28 MB
+...done creating libsvm files
+ang11 2010-08-17 16:15:11.952597: 0:17:12.180000 user+sys, 0:18:25.720000 real, 93.35% usage, 413.28 MB
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=0, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'))...
+ang11 2010-08-17 16:15:11.953120: 0:17:12.180000 user+sys, 0:18:25.720000 real, 93.35% usage, 413.28 MB
+...done creating libsvm files
+ang11 2010-08-17 16:15:24.436278: 0:17:23.860000 user+sys, 0:18:38.200000 real, 93.35% usage, 413.28 MB
+Starting SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:15:24.436940: 0:17:23.860000 user+sys, 0:18:38.200000 real, 93.35% usage, 413.28 MB
+		Training SVM with C=0.001000, nbinputs=100, numruns=20
+		Training SVM with C=0.010000, nbinputs=100, numruns=20
+	testerr[Cnew 0.010000] = 54.995000 < testerr[Ccurrent 0.001000] = 57.395000
+	NEW BEST: Cbest <= 0.010000, testerr[Cbest] = 54.995000
+	PROCEED: Cstepfactor remains 10.000000, Ccurrent is now 0.010000, Cnew is now 0.100000
+		Training SVM with C=0.100000, nbinputs=100, numruns=20
+	testerr[Cnew 0.100000] = 58.855000 > testerr[Ccurrent 0.010000] = 54.995000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.010000, Cnew is now 0.003162
+		Training SVM with C=0.003162, nbinputs=100, numruns=20
+	testerr[Cnew 0.003162] = 56.190000 > testerr[Ccurrent 0.010000] = 54.995000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.010000, Cnew is now 0.017783
+		Training SVM with C=0.017783, nbinputs=100, numruns=20
+	testerr[Cnew 0.017783] = 55.430000 > testerr[Ccurrent 0.010000] = 54.995000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.010000, Cnew is now 0.007499
+	testerr[C 0.001000] = 57.395000 
+	testerr[C 0.003162] = 56.190000 
+	testerr[C 0.010000] = 54.995000  *best* (testerr = 54.995000, testerrdev = 3.385330, trainerr = 4.050000, trainerrdev = 1.532160)
+	testerr[C 0.017783] = 55.430000 
+	testerr[C 0.100000] = 58.855000 
+...done with SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:15:34.069318: 0:17:23.880000 user+sys, 0:18:47.830000 real, 92.56% usage, 413.28 MB
+Starting SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:15:34.069574: 0:17:23.880000 user+sys, 0:18:47.830000 real, 92.56% usage, 413.28 MB
+		Training SVM with C=0.001000, nbinputs=1000, numruns=10
+		Training SVM with C=0.010000, nbinputs=1000, numruns=10
+	testerr[Cnew 0.010000] = 48.720000 < testerr[Ccurrent 0.001000] = 49.120000
+	NEW BEST: Cbest <= 0.010000, testerr[Cbest] = 48.720000
+	PROCEED: Cstepfactor remains 10.000000, Ccurrent is now 0.010000, Cnew is now 0.100000
+		Training SVM with C=0.100000, nbinputs=1000, numruns=10
+	testerr[Cnew 0.100000] = 54.870000 > testerr[Ccurrent 0.010000] = 48.720000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.010000, Cnew is now 0.003162
+		Training SVM with C=0.003162, nbinputs=1000, numruns=10
+	testerr[Cnew 0.003162] = 47.100000 < testerr[Ccurrent 0.010000] = 48.720000
+	NEW BEST: Cbest <= 0.003162, testerr[Cbest] = 47.100000
+	PROCEED: Cstepfactor remains 0.316228, Ccurrent is now 0.003162, Cnew is now 0.001000
+	testerr[Cnew 0.001000] = 49.120000 > testerr[Ccurrent 0.003162] = 47.100000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.003162, Cnew is now 0.005623
+		Training SVM with C=0.005623, nbinputs=1000, numruns=10
+	testerr[Cnew 0.005623] = 47.540000 > testerr[Ccurrent 0.003162] = 47.100000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.003162, Cnew is now 0.002371
+	testerr[C 0.001000] = 49.120000 
+	testerr[C 0.003162] = 47.100000  *best* (testerr = 47.100000, testerrdev = 0.404969, trainerr = 27.870000, trainerrdev = 0.195192)
+	testerr[C 0.005623] = 47.540000 
+	testerr[C 0.010000] = 48.720000 
+	testerr[C 0.100000] = 54.870000 
+...done with SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:16:09.335735: 0:17:23.910000 user+sys, 0:19:23.090000 real, 89.75% usage, 413.28 MB
+Starting SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:16:09.335987: 0:17:23.910000 user+sys, 0:19:23.090000 real, 89.75% usage, 413.28 MB
+		Training SVM with C=0.001000, nbinputs=10000, numruns=1
+		Training SVM with C=0.010000, nbinputs=10000, numruns=1
+	testerr[Cnew 0.010000] = 48.800000 < testerr[Ccurrent 0.001000] = 49.600000
+	NEW BEST: Cbest <= 0.010000, testerr[Cbest] = 48.800000
+	PROCEED: Cstepfactor remains 10.000000, Ccurrent is now 0.010000, Cnew is now 0.100000
+		Training SVM with C=0.100000, nbinputs=10000, numruns=1
+	testerr[Cnew 0.100000] = 54.700000 > testerr[Ccurrent 0.010000] = 48.800000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.010000, Cnew is now 0.003162
+		Training SVM with C=0.003162, nbinputs=10000, numruns=1
+	testerr[Cnew 0.003162] = 47.200000 < testerr[Ccurrent 0.010000] = 48.800000
+	NEW BEST: Cbest <= 0.003162, testerr[Cbest] = 47.200000
+	PROCEED: Cstepfactor remains 0.316228, Ccurrent is now 0.003162, Cnew is now 0.001000
+	testerr[Cnew 0.001000] = 49.600000 > testerr[Ccurrent 0.003162] = 47.200000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.003162, Cnew is now 0.005623
+		Training SVM with C=0.005623, nbinputs=10000, numruns=1
+	testerr[Cnew 0.005623] = 47.400000 > testerr[Ccurrent 0.003162] = 47.200000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.003162, Cnew is now 0.002371
+	testerr[C 0.001000] = 49.600000 
+	testerr[C 0.003162] = 47.200000  *best* (testerr = 47.200000, testerrdev = 0.000000, trainerr = 27.800000, trainerrdev = 0.000000)
+	testerr[C 0.005623] = 47.400000 
+	testerr[C 0.010000] = 48.800000 
+	testerr[C 0.100000] = 54.700000 
+...done with SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:16:16.539679: 0:17:23.930000 user+sys, 0:19:30.290000 real, 89.20% usage, 413.28 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  5000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-2
+			params (gradients) =  [Waux-2, baux-2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 1 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , (0.69999999999999996, 0.0041000000000000003)
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.01
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc1, benc1, Waux-2, baux-2] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -2 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 5000 , l2
+VALIDATION: depth 1 / epoch 2 / reconstruction error (is this on test or train?):  95.7070085754
+VALIDATION: depth 1 / epoch 2 / trainsize 100 / svm error (0.01, 54.994999999999997, 3.3853300000000002, 4.0499999999999998, 1.53216)
+VALIDATION: depth 1 / epoch 2 / trainsize 1000 / svm error (0.0031622776601683794, 47.100000000000001, 0.40496900000000002, 27.870000000000001, 0.195192)
+VALIDATION: depth 1 / epoch 2 / trainsize 10000 / svm error (0.0031622776601683794, 47.200000000000003, 0.0, 27.800000000000001, 0.0)
+ang11 2010-08-17 16:16:33.955469: 0:17:40.640000 user+sys, 0:19:47.710000 real, 89.30% usage, 413.28 MB
+params.pkl saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2
+Wenc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer1_W.pkl
+benc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer1_b.pkl
+maskenc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer1_mask.pkl
+Wenc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer2_W.pkl
+benc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer2_b.pkl
+maskenc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer2_mask.pkl
+Wenc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer3_W.pkl
+benc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer3_b.pkl
+maskenc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layer3_mask.pkl
+Waux-2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layeraux_W.pkl
+baux-2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layeraux_b.pkl
+maskaux-2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layeraux_mask.pkl
+W saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layerout_W.pkl
+b saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2/Layerout_b.pkl
+saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth1pre2
+...done validating (err={1000: {0: (0.10000000000000001, 53.030000000000001, 0.21470900000000001, 18.48, 0.203961), 2: (0.0031622776601683794, 47.100000000000001, 0.40496900000000002, 27.870000000000001, 0.195192)}, 10000: {0: (0.031622776601683798, 52.799999999999997, 0.0, 27.399999999999999, 0.0), 2: (0.0031622776601683794, 47.200000000000003, 0.0, 27.800000000000001, 0.0)}, 100: {0: (0.001, 59.734999999999999, 3.12398, 18.649999999999999, 10.9008), 2: (0.01, 54.994999999999997, 3.3853300000000002, 4.0499999999999998, 1.53216)}},epoch=2,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=0,ACT=['tanh', 'tanh', 'rectifier'],LR=0.01,NOISE_LVL=(0.69999999999999996, 0.0041000000000000003),BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)
+ang11 2010-08-17 16:16:36.508849: 0:17:40.800000 user+sys, 0:19:50.260000 real, 89.12% usage, 423.43 MB
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 16:17:09.056649: 0:18:13.160000 user+sys, 0:20:22.800000 real, 89.40% usage, 423.43 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 16:17:41.593969: 0:18:45.500000 user+sys, 0:20:55.330000 real, 89.66% usage, 423.43 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:18:14.157905: 0:19:17.870000 user+sys, 0:21:27.890000 real, 89.90% usage, 423.43 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:18:46.399863: 0:19:49.960000 user+sys, 0:22:00.130000 real, 90.14% usage, 423.43 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:19:18.577400: 0:20:22.010000 user+sys, 0:22:32.300000 real, 90.37% usage, 423.43 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:19:50.742323: 0:20:54.050000 user+sys, 0:23:04.460000 real, 90.58% usage, 423.43 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:20:22.917970: 0:21:26.070000 user+sys, 0:23:36.630000 real, 90.78% usage, 423.43 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:20:55.266045: 0:21:58.210000 user+sys, 0:24:08.970000 real, 90.98% usage, 423.43 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:21:28.974847: 0:22:30.350000 user+sys, 0:24:42.680000 real, 91.07% usage, 423.43 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:22:01.323061: 0:23:02.500000 user+sys, 0:25:15.020000 real, 91.25% usage, 423.43 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:22:33.578894: 0:23:34.580000 user+sys, 0:25:47.270000 real, 91.42% usage, 423.43 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:23:05.754964: 0:24:06.610000 user+sys, 0:26:19.440000 real, 91.59% usage, 423.43 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:23:37.961151: 0:24:38.690000 user+sys, 0:26:51.640000 real, 91.75% usage, 423.43 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:24:10.127009: 0:25:10.710000 user+sys, 0:27:23.800000 real, 91.90% usage, 423.43 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:24:41.144247: 0:25:41.650000 user+sys, 0:27:54.820000 real, 92.05% usage, 423.43 MB
+...finished training epoch #3 of 3 (100.00%)
+ang11 2010-08-17 16:24:41.144454: 0:25:41.650000 user+sys, 0:27:54.820000 real, 92.05% usage, 423.43 MB
+...DONE DEPTH 1 of 3 (33.33%)
+ang11 2010-08-17 16:24:41.144781: 0:25:41.650000 user+sys, 0:27:54.820000 real, 92.05% usage, 423.43 MB
+BEGIN DEPTH 2 of 3 (66.67%)...
+ang11 2010-08-17 16:24:41.144870: 0:25:41.650000 user+sys, 0:27:54.820000 real, 92.05% usage, 423.43 MB
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-1
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-1
+			params (gradients) =  [Waux-1, baux-1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  True True ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 2 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , (0.69999999999999996, 0.0041000000000000003)
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.01
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc1, benc1, Waux-1, baux-1] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -1 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False False False
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-1
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-1
+			params (gradients) =  [Waux-1, baux-1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 2 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , 0.5
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc2, benc2, Waux-1, baux-1] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -1 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 16:25:05.169273: 0:26:04.770000 user+sys, 0:28:18.840000 real, 92.11% usage, 441.85 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 16:25:23.287435: 0:26:22.880000 user+sys, 0:28:36.950000 real, 92.19% usage, 441.85 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:25:41.410677: 0:26:40.980000 user+sys, 0:28:55.070000 real, 92.27% usage, 441.85 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:25:59.528008: 0:26:59.100000 user+sys, 0:29:13.190000 real, 92.35% usage, 441.85 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:26:17.581810: 0:27:17.130000 user+sys, 0:29:31.240000 real, 92.43% usage, 441.85 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:26:35.610158: 0:27:35.150000 user+sys, 0:29:49.260000 real, 92.50% usage, 441.85 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:26:53.709899: 0:27:53.230000 user+sys, 0:30:07.360000 real, 92.58% usage, 441.85 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:27:11.725161: 0:28:11.240000 user+sys, 0:30:25.370000 real, 92.65% usage, 441.85 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:27:31.052818: 0:28:29.240000 user+sys, 0:30:44.700000 real, 92.66% usage, 441.85 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:27:49.060257: 0:28:47.240000 user+sys, 0:31:02.700000 real, 92.73% usage, 441.85 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:28:07.118082: 0:29:05.270000 user+sys, 0:31:20.760000 real, 92.80% usage, 441.85 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:28:25.253077: 0:29:23.400000 user+sys, 0:31:38.890000 real, 92.86% usage, 441.85 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:28:43.365563: 0:29:41.500000 user+sys, 0:31:57 real, 92.93% usage, 441.85 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:29:01.475046: 0:29:59.610000 user+sys, 0:32:15.100000 real, 93.00% usage, 441.85 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:29:19.189065: 0:30:17.300000 user+sys, 0:32:32.820000 real, 93.06% usage, 441.85 MB
+...finished training epoch #1 of 3 (33.33%)
+ang11 2010-08-17 16:29:19.189264: 0:30:17.300000 user+sys, 0:32:32.820000 real, 93.06% usage, 441.85 MB
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 16:29:37.357164: 0:30:35.450000 user+sys, 0:32:50.980000 real, 93.12% usage, 441.85 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 16:29:55.459352: 0:30:53.550000 user+sys, 0:33:09.080000 real, 93.19% usage, 441.85 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:30:13.452286: 0:31:11.540000 user+sys, 0:33:27.070000 real, 93.25% usage, 441.85 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:30:31.488170: 0:31:29.550000 user+sys, 0:33:45.100000 real, 93.31% usage, 441.85 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:30:49.497604: 0:31:47.550000 user+sys, 0:34:03.110000 real, 93.37% usage, 441.85 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:31:07.511776: 0:32:05.550000 user+sys, 0:34:21.120000 real, 93.42% usage, 441.85 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:31:25.522928: 0:32:23.570000 user+sys, 0:34:39.130000 real, 93.48% usage, 441.85 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:31:43.534266: 0:32:41.550000 user+sys, 0:34:57.140000 real, 93.53% usage, 441.85 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:32:01.609168: 0:32:59.610000 user+sys, 0:35:15.210000 real, 93.59% usage, 441.85 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:32:19.827970: 0:33:17.820000 user+sys, 0:35:33.430000 real, 93.64% usage, 441.85 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:32:37.930732: 0:33:35.910000 user+sys, 0:35:51.530000 real, 93.70% usage, 441.85 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:32:56.048044: 0:33:54.010000 user+sys, 0:36:09.640000 real, 93.75% usage, 441.85 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:33:14.149530: 0:34:12.100000 user+sys, 0:36:27.740000 real, 93.80% usage, 441.85 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:33:32.258738: 0:34:30.200000 user+sys, 0:36:45.840000 real, 93.85% usage, 441.85 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:33:51.242892: 0:34:47.880000 user+sys, 0:37:04.830000 real, 93.84% usage, 441.85 MB
+...finished training epoch #2 of 3 (66.67%)
+ang11 2010-08-17 16:33:51.243328: 0:34:47.880000 user+sys, 0:37:04.830000 real, 93.84% usage, 441.85 MB
+Validating (err={1000: {}, 10000: {}, 100: {}},epoch=2,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=1,ACT=['tanh', 'tanh', 'rectifier'],LR=0.001,NOISE_LVL=0.5,BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)...
+ang11 2010-08-17 16:33:51.243555: 0:34:47.880000 user+sys, 0:37:04.830000 real, 93.84% usage, 441.85 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False False False
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-1
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-1
+			params (gradients) =  [Waux-1, baux-1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 2 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , None
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc2, benc2, Waux-1, baux-1] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -1 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=1, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'))...
+ang11 2010-08-17 16:33:54.573794: 0:34:50.670000 user+sys, 0:37:08.160000 real, 93.83% usage, 441.85 MB
+...done creating libsvm files
+ang11 2010-08-17 16:34:04.814770: 0:35:00.460000 user+sys, 0:37:18.400000 real, 93.84% usage, 441.85 MB
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=1, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'))...
+ang11 2010-08-17 16:34:04.815311: 0:35:00.460000 user+sys, 0:37:18.400000 real, 93.84% usage, 441.85 MB
+...done creating libsvm files
+ang11 2010-08-17 16:34:15.276969: 0:35:10.410000 user+sys, 0:37:28.860000 real, 93.84% usage, 441.85 MB
+Starting SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:34:15.277577: 0:35:10.410000 user+sys, 0:37:28.860000 real, 93.84% usage, 441.85 MB
+		Training SVM with C=0.001000, nbinputs=100, numruns=20
+		Training SVM with C=0.010000, nbinputs=100, numruns=20
+	testerr[Cnew 0.010000] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	Cbest <= 0.001000, testerr[Cbest] = 74.135000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=100, numruns=20
+	testerr[Cnew 0.000316] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=100, numruns=20
+	testerr[Cnew 0.001778] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=100, numruns=20
+	testerr[Cnew 0.000750] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 74.135000 
+	testerr[C 0.000750] = 74.135000 
+	testerr[C 0.001000] = 74.135000  *best* (testerr = 74.135000, testerrdev = 15.628900, trainerr = 69.900000, trainerrdev = 19.595700)
+	testerr[C 0.001778] = 74.135000 
+	testerr[C 0.010000] = 74.135000 
+...done with SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:34:19.757232: 0:35:10.440000 user+sys, 0:37:33.330000 real, 93.66% usage, 441.85 MB
+Starting SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:34:19.757489: 0:35:10.440000 user+sys, 0:37:33.340000 real, 93.66% usage, 441.85 MB
+		Training SVM with C=0.001000, nbinputs=1000, numruns=10
+		Training SVM with C=0.010000, nbinputs=1000, numruns=10
+	testerr[Cnew 0.010000] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	Cbest <= 0.001000, testerr[Cbest] = 64.500000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=1000, numruns=10
+	testerr[Cnew 0.000316] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=1000, numruns=10
+	testerr[Cnew 0.001778] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=1000, numruns=10
+	testerr[Cnew 0.000750] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 64.500000 
+	testerr[C 0.000750] = 64.500000 
+	testerr[C 0.001000] = 64.500000  *best* (testerr = 64.500000, testerrdev = 0.000000, trainerr = 68.300000, trainerrdev = 0.000000)
+	testerr[C 0.001778] = 64.500000 
+	testerr[C 0.010000] = 64.500000 
+...done with SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:34:23.560617: 0:35:10.460000 user+sys, 0:37:37.140000 real, 93.50% usage, 441.85 MB
+Starting SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:34:23.560865: 0:35:10.460000 user+sys, 0:37:37.140000 real, 93.50% usage, 441.85 MB
+		Training SVM with C=0.001000, nbinputs=10000, numruns=1
+		Training SVM with C=0.010000, nbinputs=10000, numruns=1
+	testerr[Cnew 0.010000] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	Cbest <= 0.001000, testerr[Cbest] = 64.500000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=10000, numruns=1
+	testerr[Cnew 0.000316] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=10000, numruns=1
+	testerr[Cnew 0.001778] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=10000, numruns=1
+	testerr[Cnew 0.000750] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 64.500000 
+	testerr[C 0.000750] = 64.500000 
+	testerr[C 0.001000] = 64.500000  *best* (testerr = 64.500000, testerrdev = 0.000000, trainerr = 68.300000, trainerrdev = 0.000000)
+	testerr[C 0.001778] = 64.500000 
+	testerr[C 0.010000] = 64.500000 
+...done with SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:34:25.956170: 0:35:10.480000 user+sys, 0:37:39.530000 real, 93.40% usage, 441.85 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False False False
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux-1
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux-1
+			params (gradients) =  [Waux-1, baux-1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 2 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , 0.5
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc2, benc2, Waux-1, baux-1] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , -1 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+VALIDATION: depth 2 / epoch 2 / reconstruction error (is this on test or train?):  nan
+VALIDATION: depth 2 / epoch 2 / trainsize 100 / svm error (0.001, 74.135000000000005, 15.6289, 69.900000000000006, 19.595700000000001)
+VALIDATION: depth 2 / epoch 2 / trainsize 1000 / svm error (0.001, 64.5, 0.0, 68.299999999999997, 1.4210899999999999e-14)
+VALIDATION: depth 2 / epoch 2 / trainsize 10000 / svm error (0.001, 64.5, 0.0, 68.299999999999997, 0.0)
+ang11 2010-08-17 16:34:34.573053: 0:35:18.580000 user+sys, 0:37:48.150000 real, 93.41% usage, 441.85 MB
+params.pkl saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2
+Wenc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer1_W.pkl
+benc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer1_b.pkl
+maskenc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer1_mask.pkl
+Wenc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer2_W.pkl
+benc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer2_b.pkl
+maskenc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer2_mask.pkl
+Wenc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer3_W.pkl
+benc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer3_b.pkl
+maskenc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layer3_mask.pkl
+Waux-1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layeraux_W.pkl
+baux-1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layeraux_b.pkl
+maskaux-1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layeraux_mask.pkl
+W saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layerout_W.pkl
+b saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2/Layerout_b.pkl
+saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth2pre2
+...done validating (err={1000: {2: (0.001, 64.5, 0.0, 68.299999999999997, 1.4210899999999999e-14)}, 10000: {2: (0.001, 64.5, 0.0, 68.299999999999997, 0.0)}, 100: {2: (0.001, 74.135000000000005, 15.6289, 69.900000000000006, 19.595700000000001)}},epoch=2,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=1,ACT=['tanh', 'tanh', 'rectifier'],LR=0.001,NOISE_LVL=0.5,BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)
+ang11 2010-08-17 16:34:36.435254: 0:35:18.710000 user+sys, 0:37:50.010000 real, 93.33% usage, 444.88 MB
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 16:34:54.586281: 0:35:36.840000 user+sys, 0:38:08.160000 real, 93.39% usage, 444.88 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 16:35:12.735423: 0:35:54.990000 user+sys, 0:38:26.300000 real, 93.44% usage, 444.88 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:35:30.890400: 0:36:13.120000 user+sys, 0:38:44.460000 real, 93.49% usage, 444.88 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:35:49.150601: 0:36:31.370000 user+sys, 0:39:02.710000 real, 93.54% usage, 444.88 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:36:07.361018: 0:36:49.570000 user+sys, 0:39:20.920000 real, 93.59% usage, 444.88 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:36:25.507917: 0:37:07.710000 user+sys, 0:39:39.070000 real, 93.64% usage, 444.88 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:36:43.658764: 0:37:25.840000 user+sys, 0:39:57.210000 real, 93.69% usage, 444.88 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:37:01.806192: 0:37:43.980000 user+sys, 0:40:15.360000 real, 93.73% usage, 444.88 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:37:19.949954: 0:38:02.120000 user+sys, 0:40:33.500000 real, 93.78% usage, 444.88 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:37:38.087629: 0:38:20.240000 user+sys, 0:40:51.630000 real, 93.82% usage, 444.88 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:37:56.097007: 0:38:38.230000 user+sys, 0:41:09.640000 real, 93.87% usage, 444.88 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:38:14.102442: 0:38:56.230000 user+sys, 0:41:27.640000 real, 93.91% usage, 444.88 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:38:32.156894: 0:39:14.280000 user+sys, 0:41:45.690000 real, 93.96% usage, 444.88 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:38:50.276106: 0:39:32.390000 user+sys, 0:42:03.810000 real, 94.00% usage, 444.88 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:39:07.937482: 0:39:50.020000 user+sys, 0:42:21.470000 real, 94.04% usage, 444.88 MB
+...finished training epoch #3 of 3 (100.00%)
+ang11 2010-08-17 16:39:07.937691: 0:39:50.020000 user+sys, 0:42:21.470000 real, 94.04% usage, 444.88 MB
+...DONE DEPTH 2 of 3 (66.67%)
+ang11 2010-08-17 16:39:07.937994: 0:39:50.020000 user+sys, 0:42:21.470000 real, 94.04% usage, 444.88 MB
+BEGIN DEPTH 3 of 3 (100.00%)...
+ang11 2010-08-17 16:39:07.938080: 0:39:50.020000 user+sys, 0:42:21.470000 real, 94.04% usage, 444.88 MB
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux0
+			inp =  outenc3
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux0
+			params (gradients) =  [Waux0, baux0]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  True True ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 3 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , 0.5
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc2, benc2, Waux0, baux0] , [] , []
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , 0 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #3 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc3
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  rectifier
+			noise =  binomial
+			out =  outenc3
+			params (gradients) =  [Wenc3, benc3]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc3
+			allocW, allocb, allocmask =  False False False
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux0
+			inp =  outenc3
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux0
+			params (gradients) =  [Waux0, baux0]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 3 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , 0.3
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.0001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc3, benc3, Waux0, baux0] , [] , [Elemwise{mul,no_inplace}.0]
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , 0 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+Validating (err={1000: {}, 10000: {}, 100: {}},epoch=0,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=2,ACT=['tanh', 'tanh', 'rectifier'],LR=0.0001,NOISE_LVL=0.3,BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)...
+ang11 2010-08-17 16:39:15.476567: 0:39:56.070000 user+sys, 0:42:29.010000 real, 94.00% usage, 471.29 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #3 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc3
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  rectifier
+			noise =  binomial
+			out =  outenc3
+			params (gradients) =  [Wenc3, benc3]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc3
+			allocW, allocb, allocmask =  False False False
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux0
+			inp =  outenc3
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux0
+			params (gradients) =  [Waux0, baux0]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 3 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , None
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.0001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc3, benc3, Waux0, baux0] , [] , [Elemwise{mul,no_inplace}.0]
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , 0 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=2, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'))...
+ang11 2010-08-17 16:39:19.810438: 0:39:59.930000 user+sys, 0:42:33.340000 real, 93.99% usage, 473.34 MB
+...done creating libsvm files
+ang11 2010-08-17 16:39:30.270813: 0:40:09.900000 user+sys, 0:42:43.800000 real, 94.00% usage, 473.34 MB
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=2, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'))...
+ang11 2010-08-17 16:39:30.271383: 0:40:09.900000 user+sys, 0:42:43.800000 real, 94.00% usage, 473.34 MB
+...done creating libsvm files
+ang11 2010-08-17 16:39:40.969080: 0:40:20.030000 user+sys, 0:42:54.500000 real, 94.00% usage, 473.34 MB
+Starting SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:39:40.969952: 0:40:20.030000 user+sys, 0:42:54.500000 real, 94.00% usage, 473.34 MB
+		Training SVM with C=0.001000, nbinputs=100, numruns=20
+		Training SVM with C=0.010000, nbinputs=100, numruns=20
+	testerr[Cnew 0.010000] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	Cbest <= 0.001000, testerr[Cbest] = 74.135000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=100, numruns=20
+	testerr[Cnew 0.000316] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=100, numruns=20
+	testerr[Cnew 0.001778] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=100, numruns=20
+	testerr[Cnew 0.000750] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 74.135000 
+	testerr[C 0.000750] = 74.135000 
+	testerr[C 0.001000] = 74.135000  *best* (testerr = 74.135000, testerrdev = 15.628900, trainerr = 69.900000, trainerrdev = 19.595700)
+	testerr[C 0.001778] = 74.135000 
+	testerr[C 0.010000] = 74.135000 
+...done with SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:39:45.809996: 0:40:20.050000 user+sys, 0:42:59.340000 real, 93.82% usage, 473.34 MB
+Starting SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:39:45.810267: 0:40:20.050000 user+sys, 0:42:59.340000 real, 93.82% usage, 473.34 MB
+		Training SVM with C=0.001000, nbinputs=1000, numruns=10
+		Training SVM with C=0.010000, nbinputs=1000, numruns=10
+	testerr[Cnew 0.010000] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	Cbest <= 0.001000, testerr[Cbest] = 64.500000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=1000, numruns=10
+	testerr[Cnew 0.000316] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=1000, numruns=10
+	testerr[Cnew 0.001778] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=1000, numruns=10
+	testerr[Cnew 0.000750] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 64.500000 
+	testerr[C 0.000750] = 64.500000 
+	testerr[C 0.001000] = 64.500000  *best* (testerr = 64.500000, testerrdev = 0.000000, trainerr = 68.300000, trainerrdev = 0.000000)
+	testerr[C 0.001778] = 64.500000 
+	testerr[C 0.010000] = 64.500000 
+...done with SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:39:49.607870: 0:40:20.070000 user+sys, 0:43:03.130000 real, 93.69% usage, 473.34 MB
+Starting SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:39:49.608140: 0:40:20.070000 user+sys, 0:43:03.130000 real, 93.69% usage, 473.34 MB
+		Training SVM with C=0.001000, nbinputs=10000, numruns=1
+		Training SVM with C=0.010000, nbinputs=10000, numruns=1
+	testerr[Cnew 0.010000] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	Cbest <= 0.001000, testerr[Cbest] = 64.500000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=10000, numruns=1
+	testerr[Cnew 0.000316] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=10000, numruns=1
+	testerr[Cnew 0.001778] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=10000, numruns=1
+	testerr[Cnew 0.000750] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 64.500000 
+	testerr[C 0.000750] = 64.500000 
+	testerr[C 0.001000] = 64.500000  *best* (testerr = 64.500000, testerrdev = 0.000000, trainerr = 68.300000, trainerrdev = 0.000000)
+	testerr[C 0.001778] = 64.500000 
+	testerr[C 0.010000] = 64.500000 
+...done with SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:39:52.017443: 0:40:20.100000 user+sys, 0:43:05.540000 real, 93.60% usage, 473.34 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #3 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc3
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  rectifier
+			noise =  binomial
+			out =  outenc3
+			params (gradients) =  [Wenc3, benc3]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc3
+			allocW, allocb, allocmask =  False False False
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux0
+			inp =  outenc3
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux0
+			params (gradients) =  [Waux0, baux0]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 3 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , 0.3
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.0001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc3, benc3, Waux0, baux0] , [] , [Elemwise{mul,no_inplace}.0]
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , 0 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+VALIDATION: depth 3 / epoch 0 / reconstruction error (is this on test or train?):  nan
+VALIDATION: depth 3 / epoch 0 / trainsize 100 / svm error (0.001, 74.135000000000005, 15.6289, 69.900000000000006, 19.595700000000001)
+VALIDATION: depth 3 / epoch 0 / trainsize 1000 / svm error (0.001, 64.5, 0.0, 68.299999999999997, 1.4210899999999999e-14)
+VALIDATION: depth 3 / epoch 0 / trainsize 10000 / svm error (0.001, 64.5, 0.0, 68.299999999999997, 0.0)
+ang11 2010-08-17 16:40:01.206735: 0:40:28.490000 user+sys, 0:43:14.730000 real, 93.59% usage, 473.34 MB
+...done validating (err={1000: {0: (0.001, 64.5, 0.0, 68.299999999999997, 1.4210899999999999e-14)}, 10000: {0: (0.001, 64.5, 0.0, 68.299999999999997, 0.0)}, 100: {0: (0.001, 74.135000000000005, 15.6289, 69.900000000000006, 19.595700000000001)}},epoch=0,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=2,ACT=['tanh', 'tanh', 'rectifier'],LR=0.0001,NOISE_LVL=0.3,BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)
+ang11 2010-08-17 16:40:01.207087: 0:40:28.490000 user+sys, 0:43:14.730000 real, 93.59% usage, 473.34 MB
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 16:40:25.303088: 0:40:52.550000 user+sys, 0:43:38.820000 real, 93.65% usage, 473.34 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 16:40:49.388675: 0:41:16.630000 user+sys, 0:44:02.900000 real, 93.71% usage, 473.34 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:41:13.492867: 0:41:40.710000 user+sys, 0:44:27 real, 93.76% usage, 473.34 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:41:37.365379: 0:42:04.570000 user+sys, 0:44:50.870000 real, 93.82% usage, 473.34 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:42:01.090302: 0:42:28.280000 user+sys, 0:45:14.590000 real, 93.87% usage, 473.34 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:42:24.885358: 0:42:52.060000 user+sys, 0:45:38.390000 real, 93.93% usage, 473.34 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:42:48.679938: 0:43:15.850000 user+sys, 0:46:02.180000 real, 93.98% usage, 473.34 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:43:12.452327: 0:43:39.610000 user+sys, 0:46:25.940000 real, 94.03% usage, 473.34 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:43:36.350151: 0:44:03.490000 user+sys, 0:46:49.840000 real, 94.08% usage, 473.34 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:44:00.361569: 0:44:27.480000 user+sys, 0:47:13.850000 real, 94.13% usage, 473.34 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:44:24.297488: 0:44:51.410000 user+sys, 0:47:37.780000 real, 94.18% usage, 473.34 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:44:48.320457: 0:45:15.410000 user+sys, 0:48:01.800000 real, 94.23% usage, 473.34 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:45:12.258167: 0:45:39.330000 user+sys, 0:48:25.730000 real, 94.27% usage, 473.34 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:45:36.029517: 0:46:03.100000 user+sys, 0:48:49.500000 real, 94.32% usage, 473.34 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:45:59.022649: 0:46:26.080000 user+sys, 0:49:12.490000 real, 94.36% usage, 473.34 MB
+...finished training epoch #1 of 3 (33.33%)
+ang11 2010-08-17 16:45:59.022855: 0:46:26.080000 user+sys, 0:49:12.490000 real, 94.36% usage, 473.34 MB
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 16:46:23.141010: 0:46:49.860000 user+sys, 0:49:36.600000 real, 94.40% usage, 473.34 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 16:46:46.931947: 0:47:13.650000 user+sys, 0:50:00.390000 real, 94.44% usage, 473.34 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:47:10.721798: 0:47:37.410000 user+sys, 0:50:24.170000 real, 94.49% usage, 473.34 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:47:34.698362: 0:48:01.380000 user+sys, 0:50:48.150000 real, 94.53% usage, 473.34 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:47:58.687171: 0:48:25.350000 user+sys, 0:51:12.130000 real, 94.57% usage, 473.34 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:48:22.697005: 0:48:49.340000 user+sys, 0:51:36.140000 real, 94.61% usage, 473.34 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:48:46.639279: 0:49:13.270000 user+sys, 0:52:00.080000 real, 94.65% usage, 473.34 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:49:10.549624: 0:49:37.170000 user+sys, 0:52:23.980000 real, 94.69% usage, 473.34 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:49:34.267139: 0:50:00.870000 user+sys, 0:52:47.700000 real, 94.73% usage, 473.34 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:49:58.015343: 0:50:24.610000 user+sys, 0:53:11.440000 real, 94.77% usage, 473.34 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:50:21.807585: 0:50:48.380000 user+sys, 0:53:35.230000 real, 94.81% usage, 473.34 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:50:45.610461: 0:51:12.170000 user+sys, 0:53:59.030000 real, 94.85% usage, 473.34 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:51:09.431292: 0:51:35.970000 user+sys, 0:54:22.850000 real, 94.89% usage, 473.34 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:51:33.453418: 0:51:59.990000 user+sys, 0:54:46.860000 real, 94.92% usage, 473.34 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:51:56.715047: 0:52:23.230000 user+sys, 0:55:10.120000 real, 94.96% usage, 473.34 MB
+...finished training epoch #2 of 3 (66.67%)
+ang11 2010-08-17 16:51:56.715252: 0:52:23.230000 user+sys, 0:55:10.120000 real, 94.96% usage, 473.34 MB
+Validating (err={1000: {0: (0.001, 64.5, 0.0, 68.299999999999997, 1.4210899999999999e-14)}, 10000: {0: (0.001, 64.5, 0.0, 68.299999999999997, 0.0)}, 100: {0: (0.001, 74.135000000000005, 15.6289, 69.900000000000006, 19.595700000000001)}},epoch=2,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=2,ACT=['tanh', 'tanh', 'rectifier'],LR=0.0001,NOISE_LVL=0.3,BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)...
+ang11 2010-08-17 16:51:56.715528: 0:52:23.230000 user+sys, 0:55:10.120000 real, 94.96% usage, 473.34 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #3 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc3
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  rectifier
+			noise =  binomial
+			out =  outenc3
+			params (gradients) =  [Wenc3, benc3]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc3
+			allocW, allocb, allocmask =  False False False
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux0
+			inp =  outenc3
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux0
+			params (gradients) =  [Waux0, baux0]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 3 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , None
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.0001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc3, benc3, Waux0, baux0] , [] , [Elemwise{mul,no_inplace}.0]
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , 0 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=2, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'))...
+ang11 2010-08-17 16:52:01.480625: 0:52:27.050000 user+sys, 0:55:14.890000 real, 94.94% usage, 473.34 MB
+...done creating libsvm files
+ang11 2010-08-17 16:52:11.985526: 0:52:37 user+sys, 0:55:25.390000 real, 94.94% usage, 473.34 MB
+Creating libsvm file '/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm' (model=<deepANN.ANN.SDAE object at 0x1262c1d0>, depth=2, datafiles=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'))...
+ang11 2010-08-17 16:52:11.986063: 0:52:37 user+sys, 0:55:25.390000 real, 94.94% usage, 473.34 MB
+...done creating libsvm files
+ang11 2010-08-17 16:52:22.956294: 0:52:46.940000 user+sys, 0:55:36.360000 real, 94.92% usage, 473.34 MB
+Starting SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:52:22.956852: 0:52:46.940000 user+sys, 0:55:36.360000 real, 94.92% usage, 473.34 MB
+		Training SVM with C=0.001000, nbinputs=100, numruns=20
+		Training SVM with C=0.010000, nbinputs=100, numruns=20
+	testerr[Cnew 0.010000] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	Cbest <= 0.001000, testerr[Cbest] = 74.135000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=100, numruns=20
+	testerr[Cnew 0.000316] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=100, numruns=20
+	testerr[Cnew 0.001778] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=100, numruns=20
+	testerr[Cnew 0.000750] = 74.135000 > testerr[Ccurrent 0.001000] = 74.135000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 74.135000 
+	testerr[C 0.000750] = 74.135000 
+	testerr[C 0.001000] = 74.135000  *best* (testerr = 74.135000, testerrdev = 15.628900, trainerr = 69.900000, trainerrdev = 19.595700)
+	testerr[C 0.001778] = 74.135000 
+	testerr[C 0.010000] = 74.135000 
+...done with SVM validation for 100 examples (numrums=20, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:52:27.607291: 0:52:46.960000 user+sys, 0:55:41.010000 real, 94.79% usage, 473.34 MB
+Starting SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:52:27.607551: 0:52:46.960000 user+sys, 0:55:41.010000 real, 94.79% usage, 473.34 MB
+		Training SVM with C=0.001000, nbinputs=1000, numruns=10
+		Training SVM with C=0.010000, nbinputs=1000, numruns=10
+	testerr[Cnew 0.010000] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	Cbest <= 0.001000, testerr[Cbest] = 64.500000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=1000, numruns=10
+	testerr[Cnew 0.000316] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=1000, numruns=10
+	testerr[Cnew 0.001778] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=1000, numruns=10
+	testerr[Cnew 0.000750] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 64.500000 
+	testerr[C 0.000750] = 64.500000 
+	testerr[C 0.001000] = 64.500000  *best* (testerr = 64.500000, testerrdev = 0.000000, trainerr = 68.300000, trainerrdev = 0.000000)
+	testerr[C 0.001778] = 64.500000 
+	testerr[C 0.010000] = 64.500000 
+...done with SVM validation for 1000 examples (numrums=10, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:52:31.344248: 0:52:46.990000 user+sys, 0:55:44.750000 real, 94.69% usage, 473.34 MB
+Starting SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm, PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396, MAXSTEPS=5, STEPFACTOR=10.000000, INITIALC=0.001000)...
+ang11 2010-08-17 16:52:31.344512: 0:52:46.990000 user+sys, 0:55:44.750000 real, 94.69% usage, 473.34 MB
+		Training SVM with C=0.001000, nbinputs=10000, numruns=1
+		Training SVM with C=0.010000, nbinputs=10000, numruns=1
+	testerr[Cnew 0.010000] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	Cbest <= 0.001000, testerr[Cbest] = 64.500000
+	REVERSE: Cstepfactor is now 0.316228, Ccurrent remains 0.001000, Cnew is now 0.000316
+		Training SVM with C=0.000316, nbinputs=10000, numruns=1
+	testerr[Cnew 0.000316] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.778279, Ccurrent remains 0.001000, Cnew is now 0.001778
+		Training SVM with C=0.001778, nbinputs=10000, numruns=1
+	testerr[Cnew 0.001778] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 0.749894, Ccurrent remains 0.001000, Cnew is now 0.000750
+		Training SVM with C=0.000750, nbinputs=10000, numruns=1
+	testerr[Cnew 0.000750] = 64.500000 > testerr[Ccurrent 0.001000] = 64.500000
+	REVERSE: Cstepfactor is now 1.154782, Ccurrent remains 0.001000, Cnew is now 0.001155
+	testerr[C 0.000316] = 64.500000 
+	testerr[C 0.000750] = 64.500000 
+	testerr[C 0.001000] = 64.500000  *best* (testerr = 64.500000, testerrdev = 0.000000, trainerr = 68.300000, trainerrdev = 0.000000)
+	testerr[C 0.001778] = 64.500000 
+	testerr[C 0.010000] = 64.500000 
+...done with SVM validation for 10000 examples (numrums=1, datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm, datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm)
+ang11 2010-08-17 16:52:33.702685: 0:52:47.010000 user+sys, 0:55:47.100000 real, 94.62% usage, 473.34 MB
+		----  Encoding  layer #1 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc1
+			inp =  inp
+			n_inp =  5000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial_NLP
+			out =  outenc1
+			params (gradients) =  [Wenc1, benc1]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc1
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #2 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc2
+			inp =  outenc1
+			n_inp =  1000
+			n_out =  1000
+			act =  tanh
+			noise =  binomial
+			out =  outenc2
+			params (gradients) =  [Wenc2, benc2]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc2
+			allocW, allocb, allocmask =  False False False
+		----  Encoding  layer #3 ----
+			**** DenseLayer.__init__ ****
+			tag =  enc3
+			inp =  outenc2
+			n_inp =  1000
+			n_out =  1000
+			act =  rectifier
+			noise =  binomial
+			out =  outenc3
+			params (gradients) =  [Wenc3, benc3]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  maskenc3
+			allocW, allocb, allocmask =  False False False
+MRG_RandomStreams Can't determine #streams from size (Shape.0), guessing 30*256
+	---- Auxiliary Layer ----
+			**** DenseLayer.__init__ ****
+			tag =  aux0
+			inp =  outenc3
+			n_inp =  1000
+			n_out =  1000
+			act =  sigmoid
+			noise =  None
+			out =  outaux0
+			params (gradients) =  [Waux0, baux0]
+			wdreg (weigth decay) =  l2
+			spreg (sparsity) =  l1
+			upmaskbool =  None
+			maskinit =  None
+			allocW, allocb, allocmask =  False False ones
+	**** SDAE ****
+	depth =  3
+	mode =  Aux
+	depth_min, depth_max, update_type =  0 , 3 , special
+	inp, n_inp =  inp , 5000
+	n_hid =  [1000, 1000, 1000]
+	layertype =  [<class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>, <class 'deepANN.ANN.DenseLayer'>]
+	act =  ['tanh', 'tanh', 'rectifier']
+	noise, noise_lvl =  ['binomial_NLP', 'binomial', 'binomial'] , 0.3
+	tie =  [True, True, True]
+	maskbool =  [None, None, None]
+	n_out, outtype =  5 , <class 'deepANN.Logistic_regression.LogisticRegression'>
+	lr =  0.0001
+	sup_scaling, unsup_scaling, aux_scaling  =  None None 1.0
+	regularization, wdreg  =  [0.0, 0.0, 0.0, 0.0] , l2
+	sparsity, spreg =  [0.0, 0.0, 0.01] , l1
+	params, wd, sp =  [Wenc3, benc3, Waux0, baux0] , [] , [Elemwise{mul,no_inplace}.0]
+	bbbool, hessscal =  None , None
+	aux, auxtarget, aux_one_sided, auxdepth, auxregularization =  True , auxtarget , True , 0 , False
+	auxact, auxn_out, auxwdreg =  sigmoid , 1000 , l2
+VALIDATION: depth 3 / epoch 2 / reconstruction error (is this on test or train?):  nan
+VALIDATION: depth 3 / epoch 2 / trainsize 100 / svm error (0.001, 74.135000000000005, 15.6289, 69.900000000000006, 19.595700000000001)
+VALIDATION: depth 3 / epoch 2 / trainsize 1000 / svm error (0.001, 64.5, 0.0, 68.299999999999997, 1.4210899999999999e-14)
+VALIDATION: depth 3 / epoch 2 / trainsize 10000 / svm error (0.001, 64.5, 0.0, 68.299999999999997, 0.0)
+ang11 2010-08-17 16:52:43.856508: 0:52:56.560000 user+sys, 0:55:57.260000 real, 94.62% usage, 473.34 MB
+params.pkl saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2
+Wenc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer1_W.pkl
+benc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer1_b.pkl
+maskenc1 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer1_mask.pkl
+Wenc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer2_W.pkl
+benc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer2_b.pkl
+maskenc2 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer2_mask.pkl
+Wenc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer3_W.pkl
+benc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer3_b.pkl
+maskenc3 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layer3_mask.pkl
+Waux0 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layeraux_W.pkl
+baux0 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layeraux_b.pkl
+maskaux0 saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layeraux_mask.pkl
+W saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layerout_W.pkl
+b saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2/Layerout_b.pkl
+saved in /work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/depth3pre2
+...done validating (err={1000: {0: (0.001, 64.5, 0.0, 68.299999999999997, 1.4210899999999999e-14), 2: (0.001, 64.5, 0.0, 68.299999999999997, 1.4210899999999999e-14)}, 10000: {0: (0.001, 64.5, 0.0, 68.299999999999997, 0.0), 2: (0.001, 64.5, 0.0, 68.299999999999997, 0.0)}, 100: {0: (0.001, 74.135000000000005, 15.6289, 69.900000000000006, 19.595700000000001), 2: (0.001, 74.135000000000005, 15.6289, 69.900000000000006, 19.595700000000001)}},epoch=2,model=<deepANN.ANN.SDAE object at 0x1262c1d0>,depth=2,ACT=['tanh', 'tanh', 'rectifier'],LR=0.0001,NOISE_LVL=0.3,BATCHSIZE=10,train=<CudaNdarrayType(float32, matrix)>,datatrain=('/home/turian/data/DARPAproject/OpenTable_5000_train_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_train_labels_1.pkl'),datatrainsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/train.libsvm,datatest=('/home/turian/data/DARPAproject/OpenTable_5000_test_instances_1.pkl', '/home/turian/data/DARPAproject/OpenTable_5000_test_labels_1.pkl'),datatestsave=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396/test.libsvm,VALIDATION_TRAININGSIZE=[100, 1000, 10000],VALIDATION_RUNS_FOR_EACH_TRAININGSIZE={'100': 20, '10000': 1, '1000': 10},PATH_SAVE=/work/turian/dev/python/DeepANN/exp_scripts/jobman_20100817_155646_06084396)
+ang11 2010-08-17 16:52:45.660629: 0:52:56.690000 user+sys, 0:55:59.060000 real, 94.57% usage, 476.49 MB
+		Finished training over file 1 of 15 (6.67%)
+		ang11 2010-08-17 16:53:09.671108: 0:53:20.680000 user+sys, 0:56:23.070000 real, 94.61% usage, 476.49 MB
+		Finished training over file 2 of 15 (13.33%)
+		ang11 2010-08-17 16:53:33.371894: 0:53:44.360000 user+sys, 0:56:46.760000 real, 94.65% usage, 476.49 MB
+		Finished training over file 3 of 15 (20.00%)
+		ang11 2010-08-17 16:53:57.112077: 0:54:08.100000 user+sys, 0:57:10.500000 real, 94.68% usage, 476.49 MB
+		Finished training over file 4 of 15 (26.67%)
+		ang11 2010-08-17 16:54:20.905760: 0:54:31.880000 user+sys, 0:57:34.290000 real, 94.72% usage, 476.49 MB
+		Finished training over file 5 of 15 (33.33%)
+		ang11 2010-08-17 16:54:44.693651: 0:54:55.650000 user+sys, 0:57:58.070000 real, 94.76% usage, 476.49 MB
+		Finished training over file 6 of 15 (40.00%)
+		ang11 2010-08-17 16:55:08.586455: 0:55:19.530000 user+sys, 0:58:21.960000 real, 94.79% usage, 476.49 MB
+		Finished training over file 7 of 15 (46.67%)
+		ang11 2010-08-17 16:55:32.610891: 0:55:43.530000 user+sys, 0:58:45.980000 real, 94.83% usage, 476.49 MB
+		Finished training over file 8 of 15 (53.33%)
+		ang11 2010-08-17 16:55:56.574076: 0:56:07.480000 user+sys, 0:59:09.940000 real, 94.86% usage, 476.49 MB
+		Finished training over file 9 of 15 (60.00%)
+		ang11 2010-08-17 16:56:20.486369: 0:56:31.390000 user+sys, 0:59:33.850000 real, 94.89% usage, 476.49 MB
+		Finished training over file 10 of 15 (66.67%)
+		ang11 2010-08-17 16:56:44.485531: 0:56:55.370000 user+sys, 0:59:57.850000 real, 94.93% usage, 476.49 MB
+		Finished training over file 11 of 15 (73.33%)
+		ang11 2010-08-17 16:57:08.263329: 0:57:19.130000 user+sys, 1:00:21.620000 real, 94.96% usage, 476.49 MB
+		Finished training over file 12 of 15 (80.00%)
+		ang11 2010-08-17 16:57:31.942821: 0:57:42.800000 user+sys, 1:00:45.300000 real, 94.99% usage, 476.49 MB
+		Finished training over file 13 of 15 (86.67%)
+		ang11 2010-08-17 16:57:55.702876: 0:58:06.540000 user+sys, 1:01:09.050000 real, 95.03% usage, 476.49 MB
+		Finished training over file 14 of 15 (93.33%)
+		ang11 2010-08-17 16:58:19.492071: 0:58:30.320000 user+sys, 1:01:32.840000 real, 95.06% usage, 476.49 MB
+		Finished training over file 15 of 15 (100.00%)
+		ang11 2010-08-17 16:58:42.548108: 0:58:53.360000 user+sys, 1:01:55.890000 real, 95.09% usage, 476.49 MB
+...finished training epoch #3 of 3 (100.00%)
+ang11 2010-08-17 16:58:42.548548: 0:58:53.360000 user+sys, 1:01:55.890000 real, 95.09% usage, 476.49 MB
+...DONE DEPTH 3 of 3 (100.00%)
+ang11 2010-08-17 16:58:42.548884: 0:58:53.370000 user+sys, 1:01:55.890000 real, 95.09% usage, 476.49 MB
+100
+{'100': 20, '10000': 1, '1000': 10}
+1000
+{'100': 20, '10000': 1, '1000': 10}
+10000
+{'100': 20, '10000': 1, '1000': 10}
+100
+{'100': 20, '10000': 1, '1000': 10}
+1000
+{'100': 20, '10000': 1, '1000': 10}
+10000
+{'100': 20, '10000': 1, '1000': 10}
+100
+{'100': 20, '10000': 1, '1000': 10}
+1000
+{'100': 20, '10000': 1, '1000': 10}
+10000
+{'100': 20, '10000': 1, '1000': 10}
+100
+{'100': 20, '10000': 1, '1000': 10}
+1000
+{'100': 20, '10000': 1, '1000': 10}
+10000
+{'100': 20, '10000': 1, '1000': 10}
+100
+{'100': 20, '10000': 1, '1000': 10}
+1000
+{'100': 20, '10000': 1, '1000': 10}
+10000
+{'100': 20, '10000': 1, '1000': 10}

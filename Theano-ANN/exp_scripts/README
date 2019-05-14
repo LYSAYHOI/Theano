@@ -1,0 +1,140 @@
+
+Regarding exp_script/DARPAscript.py and DARPA.conf.sample...
+
+NOTE: We should renamed "test" to "validation" throughout.
+
+TODO:
+    * We need a fast fast (10 min) script to test for diffs when we update code.
+    * Debug output should include more information, like depth, #epochs, #trainsize.
+
+    * Rename state.depth to state.maxdepth or something, throughout. (Except sometimes we add it?)
+
+    * Add 'hg log | head' id to output.
+
+    * If the work directory already exists, should we just remove it entirely?
+    Currently we overwrite the files one by one. This is kind of dangerous
+    because if we abort prematurely, we have stale later files.
+
+NOTE:
+    * You should use have this Python library in your PYTHONPATH:
+        http://github.com/turian/common
+
+mkdir work/
+
+The simple command to lauch the script properly is:
+
+    PYTHONPATH=$PYTHONPATH:.. THEANO_FLAGS=mode=FAST_RUN,device=gpu0,floatX=float32 jobman cmdline -w work/ DARPAscript.NLPSDAE DARPA-fast.conf
+
+- gpu0 means select the first GPU device.
+- DARPA-fast.conf is the conf file where your hyperparameters are
+  specified. This is script that is fast to train.
+  You can overwrite values specified by the .conf file by
+  adding hyperparam choices to the end of the command-line.
+
+  If you want to experiment over different *sets* of hyperparameters,
+  you should create an SQL database with the different hyperparameter
+  configurations that you want.
+- On the jobman command line, you can select a path to store the results.
+
+In order to make it work you need to install the Antoine version of the
+liblinear library (to do very very fast SVM learning). Antoine added the
+code in the preprocessor archive. In the first line of the script, a path
+to the lib/liblinear folder is hard coded, you should change it to yours.
+
+Also, you need to have jobman. And in your PYTHONPATH you should put
+the deepANN path.
+
+Then all the parameters needed to launch the experiments are in
+DARPA.conf. They are currently at the values of our best setting so far.
+
+The script does greedy layer-wise training on GPUs or CPU. Testing is
+performed periodically. There is a list of epochs (that you give as
+parameter 'epochstest' in the conf file), one per layer, that specifies
+which this testing is performed. Each time we perform testing, we evaluate
+an unsupervised and supervised criterion over test:
+
+    * Unsupervised: we calculate the reconstruction error on the first
+    25000 examples of our test set.
+
+    * Supervised: We train linear SVMs on the current layer representation
+    with different numbers of labeled training examples:
+        - 100 training examples (x20 different samples of 100 training examples)
+        - 1000 training examples (x10 different samples of 1000 training examples)
+        - 10000 training examples (x1 different sample of 10000 training examples)
+
+    We evaluate these supervised models on the 'name_testdata' validation
+    instances.
+
+    For each different number of training examples, we also try different
+    SVM C values, varying by a factor of 10. We evaluate the C value on
+    the validation instances. We take the mean validation score over the
+    different samples used at this # of training examples. We choose
+    the C value that minimizes this mean validation score, and report
+    this mean validation score.
+
+    This entire supervised evaluation appears to be a time-consuming:
+        (20 * 100 examples, 10 * 1000 examples, 1* 1000 examples) *
+        number of C visited (at least 3)
+    but in fact it takes about 30 minutes (thanks to Antoine and liblinear
+    :). In principle, we could train the SVMs in parallel on a CPU with a
+    thread (I've already done it to generate shapeset data on CPU while
+    training on GPU). At the moment it is not implemented.
+
+    For huge models (5000 hidden units per layer) the SVM might take up
+    to 2 GB of RAM on the CPU. This model size fits also on the GPUs we
+    tested (GTX480).
+
+jobman will write files of the form:
+    * orig.conf - Original hyperparameters passed in to jobman, plus
+    some jobman specific values.
+
+    * current.conf - Current hyperparameters of the job. Typically,
+    everything is identical but a few values are added:
+        > besterr1000 = [(0.01, 51.558999999999997, 0.77183500000000005, 13.85, 1.57115), (0.001, 50.543999999999997, 0.79525100000000004, 22.52, 1.96306), (0.001, 50.497, 0.67183400000000004, 29.32, 1.8285499999999999)]
+            For each layer, (best C, test err mean, test err stddev, train err mean, train err stddev)
+            For each layer, specifically, the best test err mean that we
+            ever saw at any point while we were training up to this layer.
+            This is evaluated over the 1000 training example sets.
+        > besterr100 and besterr10000
+            Like besterr1000, but with a different number of training examples.
+        > besterr1000epoch = [4, 1, 2]
+            For each layer, the training epoch at which the linear SVM
+            achieved the best test err mean, which is the value we report.
+
+        The following format might be easier to understand:
+            best_scores_for_layer1 = [100: ..., 1000: ..., 10000: ...]
+            best_scores_for_layer2 = [100: ..., 1000: ..., 10000: ...]
+
+    * depth?pre?/ - Layer at some epoch number. TODO: Add zeroes so
+    pretraining # of digits is always the same, for easier sorting.
+
+    * depth?err.pkl (where ? is the depth level)
+        First set of data:
+            For a particular epoch (the dict key), the reconstruction
+            error on the test (validation) data.
+        Second set of data:
+            With 100 labeled training examples, for a particular epoch
+            (the dict key), for the best choice of C:
+                (best C, test err mean, test err stddev, train err mean, train err stddev)
+        Third set of data:
+            As second set, but with 1000 labeled training examples.
+        Fourth set of data:
+            As second set, but with 10000 labeled training examples.
+
+        NOTE: This should be rewritten as a JSON file.
+
+        
+
+
+You can set an experiment that does all the layers in one job, or just
+add some layer to a previous trained model (you can give in the parameters
+the path of the model you want to load).
+
+I am currently testing the script to ensure it works well, at least now
+it seems to.
+
+You should use the GPU for this size of inputs to have results in approx
+8h for 3 layers in our best setting, instead of 5 days with CPU.
+
+Don't forget that we still need RAM on the CPU (around 2Gig in the worst
+case).
